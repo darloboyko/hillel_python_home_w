@@ -39,8 +39,8 @@ def make_fake_name_list():
 
 @app.route("/mean/")
 def print_middl_value_from_csv():
-    return (f'\t Средний рост = {round(converter_inches_to_cm(calculation_the_average_value_from_csv(1)), 2)} см; '
-            f'Средний вес = {round(converter_pounds_to_kg(calculation_the_average_value_from_csv(2)), 2)} кг')
+    return (f'\t Средний рост = {converter_inches_to_cm(calculation_the_average_value_from_csv(1), 3)} см; '
+            f'Средний вес = {converter_pounds_to_kg(calculation_the_average_value_from_csv(2), 3)} кг')
 
 
 @app.route("/space/")
