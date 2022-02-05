@@ -6,7 +6,8 @@ fake = Faker()
 
 
 def open_arequirements_file():
-    return open('requirements.txt', 'r')
+    with open('requirements.txt', 'r', encoding='utf-8') as opened_file:
+        return opened_file.read()
 
 
 def generate_mail(mail_length: int = 8):
@@ -30,12 +31,12 @@ def calculation_the_average_value_from_csv(number_row):
             elif line_count > 0:
                 middle_value_row.append(float(row[number_row]))
             line_count += 1
-        return sum(middle_value_row) / (line_count-2)
+        return sum(middle_value_row) / (line_count - 2)
 
 
-def converter_inches_to_cm(number_row):
-    return calculation_the_average_value_from_csv(number_row) * 2.54
+def converter_inches_to_cm(value: float, default_round=2):
+    return round(value * 2.54, default_round)
 
 
-def converter_pounds_to_kg(number_row):
-    return calculation_the_average_value_from_csv(number_row) * 0.4535923745
+def converter_pounds_to_kg(value: float, default_round=2):
+    return round(value * 0.4535923745, default_round)

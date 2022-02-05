@@ -1,6 +1,6 @@
 from flask import Flask, request
 from faker import Faker
-from utils import generate_mail, open_arequirements_file, converter_inches_to_cm, converter_pounds_to_kg
+from utils import*
 import requests
 
 fake = Faker()
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/requirements/")
 def read_requirements_file():
-    return str(open_arequirements_file().read())
+    return str(open_arequirements_file())
 
 
 @app.route("/generate-users/")
@@ -31,7 +31,7 @@ def make_fake_name_list():
     if list_length > maximum_list_length:
         list_length = default_list_length
 
-    for _ in range(100):
+    for _ in range(list_length):
         post = (fake.first_name() + ', ' + generate_mail() + '@' + fake.domain_name())
         fake_name_list.append(post)
     return str(fake_name_list)
@@ -39,7 +39,8 @@ def make_fake_name_list():
 
 @app.route("/mean/")
 def print_middl_value_from_csv():
-    return (f'\t Средний рост = {round(converter_inches_to_cm(1), 2)} см; Средний вес = {round(converter_pounds_to_kg(2), 2)} кг')
+    return (f'\t Средний рост = {round(converter_inches_to_cm(calculation_the_average_value_from_csv(1)), 2)} см; '
+            f'Средний вес = {round(converter_pounds_to_kg(calculation_the_average_value_from_csv(2)), 2)} кг')
 
 
 @app.route("/space/")
