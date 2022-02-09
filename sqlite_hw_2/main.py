@@ -1,4 +1,5 @@
 from flask import Flask, request
+import sqlite3
 
 app = Flask(__name__)
 
@@ -8,7 +9,6 @@ def emails_create():
     name = request.args['name']
     emails = request.args['emails']
 
-    import sqlite3
     con = sqlite3.connect('example.db')
     cur = con.cursor()
 
@@ -27,14 +27,13 @@ def emails_create():
 def emails_reade():
     id_new = request.args.get('id')
 
-    import sqlite3
     con = sqlite3.connect('example.db')
     cur = con.cursor()
 
     if id_new:
         sql = f'''SELECT * FROM emails WHERE id={id_new};'''
     else:
-        sql = f'''SELECT * FROM emails;'''
+        sql = f'''SELECT * FROM emails ORDER BY name ASC;'''
 
     cur.execute(sql)
     results = cur.fetchall()
@@ -51,7 +50,7 @@ def emails_update():
     con = sqlite3.connect('example.db')
     cur = con.cursor()
 
-    sql = f'''UPDATE phones SET name='{name}' WHERE id={id_new};'''
+    sql = f'''UPDATE emails SET name='{name}' WHERE id={id_new};'''
 
     cur.execute(sql)
     con.commit()
